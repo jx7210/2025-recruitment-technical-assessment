@@ -1,0 +1,58 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Hide element when width is less than 600px */
+@media (max-width: 600px) {
+  .freerooms {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .building {
+    height: 200px;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1199px) {
+  .building {
+    height: 300px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .building {
+    height: 385px;
+  }
+}
+
+@media (min-width: 900px) {
+  .search-form {
+    width: 50%;
+  }
+
+  .search-field {
+    padding: 5px 12px;
+  }
+}
+
+@media (max-width: 899px) {
+  .search-form {
+    width: 98%;
+  }
+
+  .search-field {
+    padding: 0px;
+  }
+}
