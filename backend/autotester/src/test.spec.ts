@@ -14,8 +14,13 @@ describe("Task 1", () => {
     });
 
     it("example2", async () => {
-      const response = await getTask1("alpHa-alFRedo");
+      const response = await getTask1("alpHa- _alFRedo");
       expect(response.body).toStrictEqual({ msg: "Alpha Alfredo" });
+    });
+
+    it("example3", async () => {
+      const response = await getTask1("---");
+      expect(response.status).toBe(400);
     });
 
     it("error case", async () => {
@@ -107,6 +112,124 @@ describe("Task 3", () => {
         `/summary?name=${name}`
       );
     };
+
+    const getTask1 = async (inputStr) => {
+      return await request("http://localhost:8080")
+        .post("/parse")
+        .send({ input: inputStr });
+    };
+
+    it("ans", async () => {
+      const spag = {
+        "type": "recipe",
+        "name": "Skibidi Spaghetti",
+        "requiredItems": [
+          {
+            "name": "Meatball",
+            "quantity": 3
+          },
+          {
+            "name": "Pasta",
+            "quantity": 1
+          },
+          {
+            "name": "Tomato",
+            "quantity": 2
+          }
+        ]
+      };
+      const resp1 = await postEntry(spag);
+      expect(resp1.status).toBe(200);
+
+      const meatball = {
+        "type": "recipe",
+        "name": "Meatball",
+        "requiredItems": [
+          {
+            "name": "Beef",
+            "quantity": 2
+          },
+          {
+            "name": "Egg",
+            "quantity": 1
+          }
+        ]
+      };
+      const resp2 = await postEntry(meatball);
+      expect(resp2.status).toBe(200);
+
+      const pasta = {
+        "type": "recipe",
+        "name": "Pasta",
+        "requiredItems": [
+          {
+            "name": "Flour",
+            "quantity": 3
+          },
+          {
+            "name": "Egg",
+            "quantity": 1
+          }
+        ]
+      };
+      const resp3 = await postEntry(pasta);
+      expect(resp3.status).toBe(200);
+
+      const beef = {
+          "type": "ingredient",
+          "name": "Beef",
+          "cookTime": 5
+      }
+      const resp4 = await postEntry(beef);
+
+      const egg = {
+        "type": "ingredient",
+        "name": "Egg",
+        "cookTime": 3,
+      }
+      const resp5 = await postEntry(egg);
+
+      const tomato = {
+        "type": "ingredient",
+        "name": "Tomato",
+        "cookTime": 2,
+      }
+      const resp6 = await postEntry(tomato);
+
+      const flour = {
+        "type": "ingredient",
+        "name": "Flour",
+        "cookTime": 0
+      }
+      const resp7 = await postEntry(flour);
+
+      const response = await getTask3("Skibidi Spaghetti");
+      expect(response.status).toBe(200);
+
+      const ans = {
+        "name": "Skibidi Spaghetti",
+        "cookTime": 46,
+        "ingredients": [
+          {
+            "name": "Beef",
+            "quantity": 6
+          },
+          {
+            "name": "Egg",
+            "quantity": 4
+          },
+          {
+            "name": "Flour",
+            "quantity": 3
+          },
+          {
+            "name": "Tomato",
+            "quantity": 2
+          }
+        ]
+      }
+      expect(response.body).toEqual(ans);
+    });
 
     it("What is bro doing - Get empty cookbook", async () => {
       const resp = await getTask3("nothing");
